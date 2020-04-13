@@ -1,36 +1,56 @@
 #include "BST10.h"
+#include "LinearHashTable.h"
 #include <iostream>
-
-// Test driver
 #include <stdlib.h>
 #include <random>
 #include <time.h>
-
 using namespace std;
- 
-int main() {
+
+
+
+int main() {   
+    srand(time(NULL));
     // Binary tree instance
     binaryTree<int> tree;
-    cout << "----------------------------------------------" << endl;
-    cout << "NO DUPLICATE DATA ARE INSERTED INTO THE TREE" << endl;
-    cout << "IF YOU TRY TO INSERT DUPLICATE DATA, THEY ARE" << endl;
-    cout << "SIMPLY IGNORED AND NOT ADDED INTO THE TREE." << endl;
-    cout << "----------------------------------------------" << endl;
-    cout << endl;
-    
-    // --------------------------------------------------------------- TESING THE TREE BEGINS -----------------------------------------------------------------------------------------------
+    // Hash table instance
+    HashTable table;
+
+    int Arrsize = 100;
     int ran_num;
-    srand(time(NULL));
-    for (int i = 0; i < 200; i++)
+    int num_holder[100] = {0};
+    
+    // input the random number on the array
+    for (int i = 0; i < Arrsize; i++)
     {
-        ran_num = rand() % 100;
-        root = tree.insert(root,ran_num);
+        ran_num = rand() % 150 + 1;
+
+        if ( i == 0)
+        {
+            num_holder[i] = ran_num;
+        }
+        else
+        {
+            bool double_checker = false;
+            for (int k = 0; k < i; k++)
+            {
+                if (ran_num == num_holder[k])
+                {
+                    double_checker = true;
+                    ran_num = rand() % 1000 + 1;
+                }
+            }
+
+            if (!double_checker)
+            {
+                num_holder[i] = ran_num;
+            }
+            else
+            {
+
+            }
+        }
     }
 
-    tree.getAllAscending(root);
-    cout << endl;
-   cout << "The size of the tree is " << tree.size(root) << endl;
-
-   //----------------------------------------------------------------- TEST ENDS -------------------------------------------------------------------------------------------------------
+   
     return 0;
 }
