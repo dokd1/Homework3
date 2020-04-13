@@ -1,6 +1,6 @@
 #ifndef LINEARHASHTABLE_H
 #define LINEARHASHTABLE_H
-// This is the node for the key-value node in the hash table
+// This is the node for the value node in the hash table
 class node
 {
 public:
