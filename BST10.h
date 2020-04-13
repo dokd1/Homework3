@@ -13,6 +13,7 @@ Node* root;         //Pointer to root node
 
 template<typename T>
 class binaryTree {
+    int insert_checked,remove_checked,find_checked;
 public:
 
     binaryTree();   //Constructor
@@ -34,6 +35,9 @@ public:
     Node* emptyTree(Node*);
     Node* FindMin(Node*);
     Node* remove(T, Node*);       
+    int get_insert_check() { return insert_checked; }
+    int get_remove_check() { return remove_checked; }
+    int get_find_check() { return find_checked; }
 
 
 
@@ -45,6 +49,7 @@ public:
 template<typename T>
 binaryTree<T>::binaryTree() {
     root = NULL;
+    insert_checked = remove_checked = find_checked = 0;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -182,10 +187,12 @@ Node* binaryTree<T>::insert(Node* r, T v) {
         return r;
     }
     else if (v < r->data) {
+        insert_checked++;
         r->left = insert(r->left, v);
         r = balance(r);
     }
     else if (v > r->data) {
+        insert_checked++;
         r->right = insert(r->right, v);
         r = balance(r);
     }
@@ -196,7 +203,7 @@ Node* binaryTree<T>::insert(Node* r, T v) {
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //Find - accepts a value, locates the value in the tree and returns a pointer to the node.
-//If the value isn’t in the tree, it will return a null pointer.
+//If the value isnâ€™t in the tree, it will return a null pointer.
 //-------------------------------------------------------------------------------------------------------------------------------
 template<typename T>
 Node* binaryTree<T>::find(Node* t, T v) {
@@ -205,9 +212,12 @@ Node* binaryTree<T>::find(Node* t, T v) {
         return NULL;
     }
     else if (v < t->data) {
+        find_checked++;
         return find(t->left, v);
+
     }
     else if (v > t->data) {
+        find_checked++;
         return find(t->right, v);
     }
     else {
@@ -279,9 +289,11 @@ Node* binaryTree<T>::remove(T v, Node* t) {       //NEEDS TO BE WORKED ON
         return NULL;
     }
     if (v < t->data) {
+        remove_checked++;
         t->left = remove(v, t->left);
     }
     else if (v > t->data) {
+        remove_checked++;
         t->right = remove(v, t->right);
     }
     else {
